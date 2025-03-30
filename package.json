@@ -1,0 +1,31 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "packages/main/main.js",
+  "scripts": {
+    
+    "build:backend": "npm run build --workspace=backend",
+    "build:main": "echo 'Main process build step (if any)'",
+    "build": "npm run build:backend && npm run build:main && electron-builder",
+   
+    "dev:backend": "npm run start:dev --workspace=backend",
+    "dev:main": "cross-env NODE_ENV=development electron packages/main/main.js",
+    "dev": "concurrently \"npm:dev:backend\"  \"npm:dev:main\"",
+    "start": "electron-builder --dir && electron release/linux-unpacked/app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^35.1.2",
+    "electron-builder": "^26.0.12"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@nestjs/core": "^11.0.12",
+    "@nestjs/mapped-types": "^2.1.0"
+  }
+}

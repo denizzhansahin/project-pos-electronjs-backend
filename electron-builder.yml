@@ -1,0 +1,27 @@
+appId: com.example.electron-nestjs-vite
+productName: MyElectronNestViteApp
+directories:
+  output: release/ # Build çıktısının konumu
+  # buildResources: build # İkonlar vb. kaynaklar
+files:
+  - filter: # Paketlenecek dosyalar
+      - packages/main/dist/**/* # Electron main build edilmiş hali (eğer build ediyorsanız)
+      - packages/main/main.js # Veya direkt JS dosyası
+      - packages/main/preload.js # Veya build edilmiş preload
+      
+      - packages/backend/dist/**/*  # Build edilmiş backend
+      - '!**/node_modules/*/{CHANGELOG.md,README.md,README,LICENSE,NOTICE}' # Gereksiz dosyaları çıkar
+      - '!**/node_modules/.bin'
+  # Backend node_modules'u için özel ayar gerekebilir.
+  # Genellikle backend'i tek dosyaya build etmek (örn: webpack ile) daha iyidir.
+  # Veya 'extraResources' ile backend'i ve modüllerini kopyalayabilirsiniz.
+extraResources: # Backend'i buraya kopyalayıp main.js'den çalıştırmak bir yöntemdir
+  - from: packages/backend/dist
+    to: app/backend/dist
+  - from: packages/backend/node_modules # Dikkat: Bu çok büyük olabilir!
+    to: app/backend/node_modules
+  - from: packages/backend/.env
+    to: app/backend/.env
+  - from: packages/backend/pos-database.sqlite
+    to: app/backend/pos-database.sqlite
+# ... Diğer platform ayarları (win, mac, linux)
