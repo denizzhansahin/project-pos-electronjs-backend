@@ -29,7 +29,9 @@ extraResources: # Backend'i buraya kopyalayıp main.js'den çalıştırmak bir y
 
 # Windows Yapılandırması
 win:
-  target: nsis             # Kurulum paketi türü
+  target:
+      - portable             # Hedef paket türleri
+      - msi
   icon: assets/POS2.ico    # Windows ikon yolu
 
 # Linux Yapılandırması
