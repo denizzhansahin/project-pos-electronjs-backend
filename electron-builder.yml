@@ -1,8 +1,9 @@
-appId: com.example.electron-nestjs-vite
-productName: MyElectronNestViteApp
+appId: com.denizhan.possystembackend
+productName: POS System Backend
 directories:
   output: release/ # Build çıktısının konumu
   # buildResources: build # İkonlar vb. kaynaklar
+  buildResources: assets
 files:
   - filter: # Paketlenecek dosyalar
       - packages/main/dist/**/* # Electron main build edilmiş hali (eğer build ediyorsanız)
@@ -25,3 +26,17 @@ extraResources: # Backend'i buraya kopyalayıp main.js'den çalıştırmak bir y
   - from: packages/backend/pos-database.sqlite
     to: app/backend/pos-database.sqlite
 # ... Diğer platform ayarları (win, mac, linux)
+
+# Windows Yapılandırması
+win:
+  target: nsis             # Kurulum paketi türü
+  icon: assets/POS2.ico    # Windows ikon yolu
+
+# Linux Yapılandırması
+linux:
+  target:
+    - AppImage             # Hedef paket türleri
+    - deb
+  icon: assets/POS2.png    # Linux ikon yolu
+  category: Utility        # Uygulama kategorisi
+  maintainer: Denizhan Şahin - Space Teknopoli <mailimyoktursakinyazma@mailimyoktursakinyazma.com> # .deb paketi için bakımcı bilgisi
